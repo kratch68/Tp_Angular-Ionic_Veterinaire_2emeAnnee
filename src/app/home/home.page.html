@@ -1,0 +1,74 @@
+<!-- 
+  NOM DU FICHIER : home.page.html
+  REALISATEUR : cabellic Gwenael
+  DATE : 2020/01/21
+  DESCRIPTION : Pages HTML des des clients
+-->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Les Clients</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h2>Nom:</h2>
+        </ion-col>
+        <ion-col>
+          <h2>Prenom :</h2>
+        </ion-col>
+        <ion-col>
+          <h2>Telephone :</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card>
+    <ion-list>
+      <ion-item-sliding *ngFor="let client of listeClient; let i=indice">
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <h2>{{client.nom}}</h2>
+              </ion-col>
+              <ion-col>
+                <h2>{{client.prenom}}</h2>
+              </ion-col>
+              <ion-col size="3">
+                <h2>{{client.telephone}}</h2>
+              </ion-col>
+              <ion-col size="1">
+                <ion-icon class="detail" name="information-outline" (click)="afficherDetailClient(client.id, client.nom)"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item> 
+        <ion-item-options side="start">
+          <ion-button color="warning" (click)="editClient(client,i)">Edit</ion-button>
+        </ion-item-options>
+        <ion-item-options side="end">
+          <ion-button color="danger" (click)="showComfirm(client.id)"><ion-icon name="trash"></ion-icon>Supprimer</ion-button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label>Prenom : </ion-label>
+      <ion-input type="text" name="prenom" [(ngModel)]="nouveauClient.prenom" placeholder="Prenom" pattern="[a-zA-Z]+" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nom : </ion-label>
+      <ion-input type="text"name="nom" [(ngModel)]="nouveauClient.nom" placeholder="Nom" pattern="[a-zA-Z]+" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Telephone : </ion-label>
+      <ion-input type="text" name="telephone" [(ngModel)]="nouveauClient.telephone" placeholder="444-444-4444" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required></ion-input>
+    </ion-item>
+    <ion-button expand="full" color="primary" (click)="ajouterClient()">Ajouter</ion-button>
+    <ion-button expand="full" color="success" (click)="modifierClient(nouveauClient.id)">Modifier</ion-button>
+  </ion-card>
+</ion-content>

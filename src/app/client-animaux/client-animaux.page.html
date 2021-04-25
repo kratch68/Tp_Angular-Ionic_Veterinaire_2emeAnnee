@@ -1,0 +1,79 @@
+<!-- 
+  NOM DU FICHIER : client-animaux.page.html
+  REALISATEUR : cabellic Gwenael
+  DATE : 2020/01/21
+  DESCRIPTION : Pages HTML des des animaux
+-->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-icon class="retour" name="arrow-back-outline" (click)="retour()" slot="start"></ion-icon>
+    <h2>Client :  {{nomClient}}</h2>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+<h2>Animaux: </h2>
+<ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2>Nom :</h2>
+      </ion-col>
+      <ion-col>
+        <h2>Type :</h2>
+      </ion-col>
+      <ion-col>
+        <h2>Date de naissance :</h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+<ion-card>
+  <ion-list>
+    <ion-item-sliding *ngFor="let animal of listeAnimaux; let i=indice">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>{{animal.nom}}</h2>
+            </ion-col>
+            <ion-col>
+              <h2>{{animal.type}}</h2>
+            </ion-col>
+            <ion-col size="3">
+              <h2>{{animal.dateNaissance}}</h2>
+            </ion-col>
+            <ion-col size="1">
+              <ion-icon class="detail" name="information-outline" (click)="afficherDetailAnimal(animal.id, animal.nom)"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item> 
+      <ion-item-options side="start">
+        <ion-button color="warning" (click)="editAnimal(animal,i)">Modifier</ion-button>
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-button color="danger" (click)="showComfirm(animal.id)"><ion-icon name="trash"></ion-icon>Supprimer</ion-button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-card>
+<ion-card>
+  <ion-item>
+    <ion-label>Nom : </ion-label>
+    <ion-input type="text" [(ngModel)]="nouveauAnimal.nom" placeholder="Nom" pattern="[a-zA-Z]+" required></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Type : </ion-label>
+    <ion-select [(ngModel)]="nouveauAnimal.typeAnimal_id" placeholder="Choisir type animal" required>
+      <ion-select-option value="1">Chien</ion-select-option>
+      <ion-select-option value="2">Chat</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Date de naissance : </ion-label>
+    <ion-input type="text" [(ngModel)]="nouveauAnimal.dateNaissance" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required></ion-input>
+  </ion-item>
+  <ion-button expand="full" color="primary" (click)="ajouterAnimal()">Ajouter</ion-button>
+  <ion-button expand="full" color="success" (click)="modifierAnimal(nouveauAnimal.id)">Modifier</ion-button>
+</ion-card>
+</ion-content>
